@@ -43,8 +43,11 @@ export async function GET() {
   const state = await callRpc("campus_fit_state", { p_token: token });
   if (state?.error === "invalid_session") return json(state, 401);
 
+  const themePool = await callRpc("campus_fit_theme_pool", { p_token: token });
+
   return json({
     ...state,
+    themePool: Array.isArray(themePool) ? themePool : (state?.themePool || []),
     isAdmin,
     vapidPublicKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || "",
   });
