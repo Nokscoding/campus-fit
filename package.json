@@ -14,5 +14,8 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "web-push": "3.6.7"
+  },
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "5.16.0"
   }
 }
