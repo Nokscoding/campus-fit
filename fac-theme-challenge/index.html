@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c0d10" />
+  <meta name="description" content="Championnat de thèmes vestimentaires entre potes à la fac." />
+  <title>Campus Fit — Championnat de la fac</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">CHAMPIONNAT DE LA FAC</p>
+        <h1>Campus Fit</h1>
+      </div>
+      <button class="icon-btn" id="settingsBtn" aria-label="Ouvrir les réglages"><span>⚙</span></button>
+    </header>
+
+    <main>
+      <section class="month-card glass-lite">
+        <div>
+          <p class="label">MOIS EN COURS</p>
+          <h2 id="monthTitle">Octobre 2026</h2>
+          <p id="monthSubtitle">12 thèmes · 4 semaines · 4 défis</p>
+        </div>
+        <div class="month-badge" id="progressBadge">0/4</div>
+      </section>
+
+      <nav class="week-tabs" id="weekTabs" aria-label="Semaines du mois"></nav>
+
+      <section class="hero-card" id="heroCard">
+        <div class="hero-topline">
+          <span class="status-dot"></span>
+          <span id="weekStatus">Semaine 1 · thème à tirer</span>
+        </div>
+
+        <div class="wheel-wrap">
+          <div class="wheel-pointer" aria-hidden="true"></div>
+          <div class="wheel" id="wheel" aria-label="Roulette des thèmes">
+            <div class="wheel-center"><span>TIRAGE</span><strong>?</strong></div>
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <p class="label">THÈME DE LA SEMAINE</p>
+          <h2 id="selectedTheme">À découvrir</h2>
+          <p id="themeHint">Tournez la roulette pour choisir le dress code de cette semaine.</p>
+        </div>
+
+        <button class="primary-btn" id="spinBtn">
+          <span class="btn-icon">↻</span>
+          <span id="spinBtnText">Lancer la roulette</span>
+        </button>
+      </section>
+
+      <section class="challenge-card section-card">
+        <div class="section-heading">
+          <div><p class="label">DÉFI BONUS</p><h3>Mission de la semaine</h3></div>
+          <span class="mini-pill">+2 pts</span>
+        </div>
+        <div class="challenge-content">
+          <div class="challenge-icon">⚡</div>
+          <p id="challengeText">Le défi apparaîtra après le tirage du thème.</p>
+        </div>
+      </section>
+
+      <section class="ranking-card section-card">
+        <div class="section-heading ranking-head">
+          <div><p class="label">CLASSEMENT MENSUEL</p><h3>Course du mois</h3></div>
+          <button class="text-btn" id="scoreModeBtn">Noter</button>
+        </div>
+        <div class="podium" id="podium"></div>
+        <div class="ranking-list" id="rankingList"></div>
+        <p class="ranking-note">À la fin du mois, le #1 gagne 1 victoire mensuelle. Le classement points repart ensuite à zéro.</p>
+      </section>
+
+      <section class="annual-card section-card">
+        <div class="section-heading">
+          <div><p class="label">SAISON <span id="annualYear">2026</span></p><h3>Championnat annuel</h3></div>
+          <span class="mini-pill annual-pill">🏆 Wins</span>
+        </div>
+        <div class="annual-leader" id="annualLeader"></div>
+        <div class="annual-list" id="annualList"></div>
+        <div class="history-block">
+          <div class="history-title">Gagnants des mois</div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+
+      <section class="rules-card section-card">
+        <div class="section-heading"><div><p class="label">RÈGLES RAPIDES</p><h3>Simple et carré</h3></div></div>
+        <div class="rules-grid">
+          <div><strong>1</strong><span>1 thème différent par semaine</span></div>
+          <div><strong>2</strong><span>Tenue notée sur 10</span></div>
+          <div><strong>3</strong><span>Défi bonus = +2 points</span></div>
+          <div><strong>4</strong><span>4 semaines = 1 champion du mois</span></div>
+          <div><strong>5</strong><span>Nouveaux thèmes au changement de mois</span></div>
+          <div><strong>6</strong><span>Fin d’année : le plus de wins mensuels gagne</span></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>Campus Fit · 4 semaines. 1 gagnant. Toute l’année.</footer>
+  </div>
+
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+
+  <aside class="bottom-sheet" id="settingsSheet" aria-hidden="true">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div><p class="label">PARAMÈTRES</p><h3>Votre groupe</h3></div>
+      <button class="icon-btn small" id="closeSettings" aria-label="Fermer">×</button>
+    </div>
+
+    <div class="sheet-section">
+      <div class="sheet-section-title"><strong>Participants</strong><span id="playerCount">0</span></div>
+      <div id="playersEditor" class="editor-list"></div>
+      <div class="add-row">
+        <input id="newPlayerInput" type="text" maxlength="24" placeholder="Prénom ou surnom" />
+        <button id="addPlayerBtn">Ajouter</button>
+      </div>
+    </div>
+
+    <div class="sheet-section">
+      <div class="sheet-section-title"><strong>Thèmes officiels de ce mois</strong><span id="themeCount">0</span></div>
+      <p class="sheet-help">Cette sélection change automatiquement au nouveau mois.</p>
+      <div id="themesEditor" class="editor-list themes-editor"></div>
+    </div>
+
+    <div class="sheet-section proposal-section">
+      <div class="sheet-section-title"><strong>Propositions des participants</strong><span id="proposalCount">0/0</span></div>
+      <p class="sheet-help">Au début de chaque mois, chaque participant peut ajouter 1 thème à la roulette. Il peut le remplacer tant qu’il n’a pas encore été tiré.</p>
+      <div id="proposalsEditor" class="editor-list"></div>
+      <div class="proposal-form">
+        <select id="proposalPlayer" aria-label="Participant"></select>
+        <div class="add-row proposal-add-row">
+          <input id="newThemeInput" type="text" maxlength="34" placeholder="Ex. Full Beige" />
+          <button id="addThemeBtn">Proposer</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="danger-btn" id="resetBtn">Recommencer le mois sans attribuer de victoire</button>
+  </aside>
+
+  <aside class="bottom-sheet score-sheet" id="scoreSheet" aria-hidden="true">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div><p class="label">SEMAINE <span id="scoreWeekNo">1</span></p><h3>Attribuer les points</h3></div>
+      <button class="icon-btn small" id="closeScore" aria-label="Fermer">×</button>
+    </div>
+    <p class="score-help">Note la tenue sur 10 et coche le défi bonus si la mission est réussie.</p>
+    <div id="scoreEditor" class="score-editor"></div>
+    <button class="primary-btn save-score" id="saveScoresBtn">Enregistrer les scores</button>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
